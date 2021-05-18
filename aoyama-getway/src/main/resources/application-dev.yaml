@@ -1,0 +1,58 @@
+server:
+  port: 6666
+
+spring:
+  application:
+    name: apyama-getway
+  datasource:
+    hikari:
+      url: "jdbc:mysql://127.0.0.1/?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
+      username: root
+      password: lzl0502
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+  security:
+    oauth2:
+      client:
+        client-Id: "GATEWAY"
+        client-secret: "lzl"
+  cloud:
+    nacos:
+      # 服务发现
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
+        group: ${spring.profiles.active}
+    gateway:
+      routes:
+        - id: apyama-user
+          uri: "http://127.0.0.1:8088"
+          predicates:
+            - Path=/**
+
+feign:
+  httpclient:
+    enabled: true
+
+security:
+  oauth2:
+    client:
+      client-id: app
+      client-secret: app
+      access-token-uri: " http://127.0.0.1:8086/oauth/token"
+      scope:
+        - all
+
+
+logging:
+  level:
+    root: debug
+    org:
+      springframework:
+        cloud:
+          gateway:
+            filter:
+              LoadBalancerClientFilter : TRACE

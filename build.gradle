@@ -1,0 +1,73 @@
+buildscript {
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    ext {
+        set('springBootVersion', "2.3.2.RELEASE")
+        set('springCloudAlibabaVersion', "2.2.1.RELEASE")
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    group = 'com.zx'
+    version = '0.0.1-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+
+    // 指定编码格式
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    ext {
+        set('springBootVersion', "2.3.2.RELEASE")
+        set('lombokVersion', "1.18.10")
+        set('guavaVersion', "28.1-jre")
+        set('commonsLangversion', "3.9")
+        set('springCloudAlibabaVersion', "2.2.1.RELEASE")
+        set('springCloudVersion', "Hoxton.SR6")
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+    }
+}
+
+subprojects {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencyManagement {
+        imports {
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+        implementation('org.springframework.cloud:spring-cloud-starter') {
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
+        }
+        compile("org.springframework.boot:spring-boot-starter-data-redis")
+        compile("org.hibernate.validator:hibernate-validator:6.1.0.Final")
+        compile('org.apache.commons:commons-pool2:2.8.0')
+        compile 'cn.hutool:hutool-all:5.6.5'
+    }
+}

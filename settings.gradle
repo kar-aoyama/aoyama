@@ -1,0 +1,8 @@
+include 'aoyama-getway'
+include 'aoyama-auth'
+include 'aoyama-common'
+include 'aoyama-user'
+include 'user-api'
+include 'common-api'
+include 'auth-api'
+

@@ -1,0 +1,32 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: auth
+  datasource:
+    username: root
+    password: lzl0502
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://127.0.0.1/aoyama_auth?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+  cloud:
+    nacos:
+      # 服务注册
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
+        group: ${spring.profiles.active}
+logging:
+  level:
+    root: debug
+    org:
+      springframework:
+        cloud:
+          gateway:
+            filter:
+              LoadBalancerClientFilter : info
+
