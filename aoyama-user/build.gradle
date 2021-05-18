@@ -1,0 +1,10 @@
+apply plugin: 'war'
+war.enabled = true
+
+dependencies {
+    compile project(':aoyama-common')
+    compile project(':user-api')
+    compile project(':auth-api')
+    compile 'mysql:mysql-connector-java:8.0.24'
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+}
