@@ -1,4 +1,4 @@
-package com.lzl.aoyama.auth;
+package com.lzl.aoyama.sleuth.aoyama.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,20 +7,18 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author lzl
- * @ClassName AuthApplication
- * @date: 2021/4/21 下午6:15
+ * @ClassName UserApplication
+ * @date: 2021/4/26 下午2:59
  * @Description:
  */
-// 开启服务注册发现
-@EnableDiscoveryClient
-//开启feign客户端
 @EnableFeignClients
-//指定包名是为了解决不会扫描common 模块
+@EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = "com.lzl.aoyama")
-public class AuthApplication {
+public class UserApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AuthApplication.class, args);
+        SpringApplication.run(UserApplication.class, args);
     }
-
 }
+
+    

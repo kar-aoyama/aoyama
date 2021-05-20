@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: zipkin
+  sleuth:
+    web:
+      enabled: true
+    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
+    sampler:
+      probability: 1
+  zipkin:
+    base-url: "http//localhost:9411/"
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
+        group: ${spring.profiles.active}

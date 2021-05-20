@@ -1,7 +1,7 @@
 package com.lzl.aoyama.auth.api.fegin;
 
 import com.lzl.aoyama.auth.api.dto.AccountDto;
-import com.lzl.aoyama.common.response.CommonResponse;
+import com.lzl.aoyama.sleuth.aoyama.common.response.CommonResponse;
 import org.springframework.web.bind.annotation.*;
 
 /**
