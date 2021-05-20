@@ -28,11 +28,15 @@ spring:
         group: ${spring.profiles.active}
     gateway:
       routes:
-        - id: apyama-user
-          uri: "http://127.0.0.1:8088"
+        - id: aoyama-user
+          uri: "http://127.0.0.1:8085"
           predicates:
-            - Path=/**
+            - Path=/user/**
 
+        - id: aoyama-auth
+          uri: "http://127.0.0.1:8086"
+          predicates:
+            - Path=/auth/**
 feign:
   httpclient:
     enabled: true
@@ -42,17 +46,18 @@ security:
     client:
       client-id: app
       client-secret: app
-      access-token-uri: " http://127.0.0.1:8086/oauth/token"
+      access-token-uri: "http://127.0.0.1:8086/oauth/token"
       scope:
         - all
+      user-authorization-uri: "http://127.0.0.1:8086/oauth/authorize"
 
 
-logging:
-  level:
-    root: debug
-    org:
-      springframework:
-        cloud:
-          gateway:
-            filter:
-              LoadBalancerClientFilter : TRACE
+#logging:
+#  level:
+#    root: debug
+#    org:
+#      springframework:
+#        cloud:
+#          gateway:
+#            filter:
+#              LoadBalancerClientFilter : TRACE

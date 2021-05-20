@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * @Description:
  */
 
-@RequestMapping(value = "/account")
+@RequestMapping(value = "/auth")
 public interface AccountAPI {
 
     @PostMapping(value = "saveAccount")

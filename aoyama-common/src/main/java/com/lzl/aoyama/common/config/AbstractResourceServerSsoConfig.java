@@ -1,31 +1,31 @@
-package com.lzl.aoyama.gateway.config;
+package com.lzl.aoyama.common.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 /**
  * @author lzl
- * @ClassName ResouecesConfig
- * @date: 2021/4/21 下午6:13
+ * @ClassName AbstractResourceServerSsoConfig
+ * @date: 2021/5/19 下午3:10
  * @Description:
  */
-@EnableResourceServer
-public class ResourcesServerConfig extends ResourceServerConfigurerAdapter {
+public abstract class AbstractResourceServerSsoConfig extends ResourceServerConfigurerAdapter {
 
-    @Value("spring.security.oauth2.client.client-Id")
-    private String clientId;
+    @Autowired
+    private AuthorizationCodeResourceDetails resource;
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId(clientId);
+        resources.resourceId(resource.getClientId());
     }
+
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/**").permitAll();
+        http.csrf().disable();
+        http.authorizeRequests().anyRequest().permitAll();
     }
 }

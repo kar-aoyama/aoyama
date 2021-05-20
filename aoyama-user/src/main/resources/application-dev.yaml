@@ -1,9 +1,9 @@
 server:
-  port: 8088
+  port: 8085
 
 spring:
   application:
-    name: apyama-user
+    name: user
   cloud:
     nacos:
       discovery:
@@ -16,16 +16,23 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://127.0.0.1/aoyama_user?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
 
+feign:
+  httpclient:
+    enabled: true
+  compression:
+    request:
+      min-request-size: 10420000
 
 security:
   oauth2:
     client:
       client-id: app
       client-secret: app
-      access-token-uri: " http://127.0.0.1:8086/oauth/token"
-      scope:
-        - all
-
+      access-token-uri: "http://127.0.0.1:8086/oauth/token"
+      user-authorization-uri: "http://127.0.0.1:8086/oauth/authorize"
+    resource:
+      jwt:
+        key-uri: "http://127.0.0.1:8086/oauth/token_key"
 
 logging:
   level:

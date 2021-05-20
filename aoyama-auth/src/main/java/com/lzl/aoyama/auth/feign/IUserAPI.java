@@ -9,7 +9,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @date: 2021/4/26 下午2:50
  * @Description:
  */
-@FeignClient(value = "user", contextId = "userAPI")
+@FeignClient(name = "user", contextId = "userAPI")
 public interface IUserAPI extends UserAPI {
-
 }

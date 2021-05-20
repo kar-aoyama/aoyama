@@ -5,6 +5,7 @@ import com.lzl.aoyama.auth.api.fegin.AccountAPI;
 import com.lzl.aoyama.auth.service.AccountService;
 import com.lzl.aoyama.common.response.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @date: 2021/5/17 下午3:57
  * @Description:
  */
+
 @RestController
+
 public class AccountController implements AccountAPI {
 
     @Autowired

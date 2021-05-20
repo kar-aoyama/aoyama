@@ -43,7 +43,6 @@ public class FeignConfig {
 
             while (headerNames.hasMoreElements()) {
                 String headerName = headerNames.nextElement();
-                log.info("headerName:{}", headerName);
                 Enumeration<String> headerValues = request.getHeaders(headerName);
                 while (headerValues.hasMoreElements()) {
                     String headerValue = headerValues.nextElement();
@@ -52,7 +51,6 @@ public class FeignConfig {
             }
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            log.info("authentication11111:{}", authentication.getAuthorities());
             if (authentication instanceof OAuth2Authentication) {
                 OAuth2AuthenticationDetails details =
                         (OAuth2AuthenticationDetails) authentication.getDetails();

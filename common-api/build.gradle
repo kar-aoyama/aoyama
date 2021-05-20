@@ -7,4 +7,5 @@ dependencies {
         exclude group: 'com.alibaba.nacos', module: 'nacos-client'
     }
     compile 'com.alibaba.nacos:nacos-client:1.3.2'
+    compile 'io.github.openfeign:feign-httpclient:10.9'
 }

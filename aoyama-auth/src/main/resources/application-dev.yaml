@@ -20,13 +20,19 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
         group: ${spring.profiles.active}
-logging:
-  level:
-    root: debug
-    org:
-      springframework:
-        cloud:
-          gateway:
-            filter:
-              LoadBalancerClientFilter : info
 
+
+feign:
+  httpclient:
+    enabled: true
+
+
+#logging:
+#  level:
+#    root: debug
+#    org:
+#      springframework:
+#        cloud:
+#          gateway:
+#            filter:
+#              LoadBalancerClientFilter : info

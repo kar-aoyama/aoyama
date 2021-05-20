@@ -10,6 +10,10 @@ import org.springframework.context.annotation.Configuration;
  * @Description:
  */
 @Configuration
-@ConfigurationProperties(prefix = "")
+@ConfigurationProperties(prefix = "auth.client")
 public class WebSecurityProperties {
+
+    private String[] permitUrls = {"/"};
+
+    private String[] authenticatedUrls;
 }

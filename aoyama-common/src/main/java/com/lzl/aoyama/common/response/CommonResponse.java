@@ -1,6 +1,8 @@
 package com.lzl.aoyama.common.response;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpStatus;
+import com.alibaba.fastjson.JSONObject;
 import com.lzl.aoyama.common.exception.GlobalException;
 import lombok.Data;
 
@@ -53,4 +55,16 @@ public class CommonResponse<T> implements Serializable {
         return this.code != HttpStatus.HTTP_OK;
     }
 
+
+    public static <T> CommonResponse<T> exceptionInstance(GlobalException e, String message) {
+        return exceptionInstance(e, e.getMessage());
+    }
+
+    public String toJson() {
+        String json = JSONObject.toJSONString(this);
+        if (StrUtil.isBlank(json)) {
+            json = StrUtil.EMPTY;
+        }
+        return json;
+    }
 }

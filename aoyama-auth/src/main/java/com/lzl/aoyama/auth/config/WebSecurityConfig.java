@@ -48,13 +48,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-        auth.authenticationProvider(authenticationProvider);
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
+        auth.authenticationProvider(createAuthenticationProvider());
     }
 
+
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/assess/**", "/*.ico");
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/assets/**", "/*.ico");
     }
 
     @Override
@@ -72,10 +74,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll();
             }
         }
-        http.authorizeRequests().anyRequest().authenticated()
-                .and().csrf().disable().cors().disable();
-        http.anonymous().disable();
-        http.formLogin().loginProcessingUrl("/login");
+        http
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login.html")
+                .and()
+                .cors()
+                .disable().csrf().disable()
+                .sessionManagement()
+                .maximumSessions(1);
+
     }
 
     @Bean
@@ -83,6 +94,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        daoAuthenticationProvider.setHideUserNotFoundExceptions(false);
         return daoAuthenticationProvider;
     }
 
