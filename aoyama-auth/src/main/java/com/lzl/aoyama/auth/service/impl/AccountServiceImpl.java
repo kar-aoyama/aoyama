@@ -4,7 +4,7 @@ import com.lzl.aoyama.auth.service.AccountService;
 import com.lzl.aoyama.auth.api.dto.AccountDto;
 import com.lzl.aoyama.auth.entity.AccountEntity;
 import com.lzl.aoyama.auth.repository.AccountRepository;
-import com.lzl.aoyama.sleuth.aoyama.common.util.UUidUtil;
+import com.lzl.aoyama.common.util.UUidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

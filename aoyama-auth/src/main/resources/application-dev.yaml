@@ -9,11 +9,18 @@ spring:
     password: lzl0502
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://127.0.0.1/aoyama_auth?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
-#  redis:
-#    host: 127.0.0.1
-#    port: 6379
-#    password: lzl0502
-#    database: 0
+  redis:
+    database: 0
+    port: 6379
+    host: 127.0.0.1
+    password: lzl0502
+    lettuce:
+      pool:
+        max-idle: 8
+        min-idle: 5
+        max-active: 10
+        max-wait: 1000
+    timeout: 1000
   cloud:
     nacos:
       # 服务注册

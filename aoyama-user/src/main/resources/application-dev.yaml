@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: user
+  redis:
+    redisson:
+      config: classpath:redis.yaml
   sleuth:
     web:
       client:

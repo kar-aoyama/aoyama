@@ -1,6 +1,6 @@
 package com.lzl.aoyama.auth.feign;
 
-import com.lzl.aoyama.sleuth.aoyama.user.api.fegin.UserAPI;
+import com.lzl.aoyama.user.service.fegin.UserAPI;
 import org.springframework.cloud.openfeign.FeignClient;
 
 /**

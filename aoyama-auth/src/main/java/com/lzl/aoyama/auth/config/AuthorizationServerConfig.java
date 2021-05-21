@@ -1,6 +1,6 @@
 package com.lzl.aoyama.auth.config;
 
-import com.lzl.aoyama.sleuth.aoyama.common.exception.GlobalException;
+import com.lzl.aoyama.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -61,7 +61,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security
                 // 开启/oauth/token_key验证端口无权限访问
-                .tokenKeyAccess("permitAll()")
+                .tokenKeyAccess("isAuthenticated()")
                 // 开启/oauth/check_token验证端口认证权限访问
                 .checkTokenAccess("isAuthenticated()")
                 .allowFormAuthenticationForClients();

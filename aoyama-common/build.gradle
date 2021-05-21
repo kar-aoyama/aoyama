@@ -5,4 +5,5 @@ bootJar.enabled = false
 dependencies {
     compile project(':common-api')
     compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+    compile group: 'org.redisson', name: 'redisson-spring-boot-starter', version: '3.13.3'
 }

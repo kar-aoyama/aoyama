@@ -1,7 +1,7 @@
 package com.lzl.aoyama.auth.config;
 
 
-import com.lzl.aoyama.sleuth.aoyama.common.util.ApplicationHolder;
+import com.lzl.aoyama.common.util.ApplicationHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

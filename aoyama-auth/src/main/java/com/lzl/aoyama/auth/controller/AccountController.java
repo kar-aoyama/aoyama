@@ -3,8 +3,8 @@ package com.lzl.aoyama.auth.controller;
 import com.lzl.aoyama.auth.service.AccountService;
 import com.lzl.aoyama.auth.api.dto.AccountDto;
 import com.lzl.aoyama.auth.api.fegin.AccountAPI;
-import com.lzl.aoyama.sleuth.aoyama.common.annotation.PermissionCheck;
-import com.lzl.aoyama.sleuth.aoyama.common.response.CommonResponse;
+import com.lzl.aoyama.common.annotation.PermissionCheck;
+import com.lzl.aoyama.common.response.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
