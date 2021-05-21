@@ -17,7 +17,20 @@ import java.io.IOException;
  * @date: 2021/5/21 下午2:59
  * @Description:
  */
-@Configuration
+//@Configuration
 public class RedisConfig {
+    @Bean
+    public RedissonClient redissonClient() {
+        Config config = new Config();
+        config.useClusterServers()
+                .setScanInterval(2000)
+                .addNodeAddress("redis://127.0.0.1:6379");
 
+        return Redisson.create(config);
+    }
+
+    @Bean
+    RedissonConnectionFactory redissonConnectionFactory(RedissonClient redissonClient) {
+        return new RedissonConnectionFactory(redissonClient);
+    }
 }

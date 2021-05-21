@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisUtil {
 
-    @Autowired
+    //@Autowired
     RedissonClient redissonClient;
 
 

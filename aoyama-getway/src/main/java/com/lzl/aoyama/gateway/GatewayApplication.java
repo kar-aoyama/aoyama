@@ -3,6 +3,7 @@ package com.lzl.aoyama.gateway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.serviceregistry.AutoServiceRegistrationConfiguration;
 
 
 /**
@@ -22,13 +23,12 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 //@EnableZuulServer 开启zuul 服务
 //@EnableZuulProxy // 开启zuul 代理
 @EnableDiscoveryClient //开启服务发现
+// 不要注册也能发布到 nacos  最终导入的是 AutoServiceRegistrationConfiguration
+// spring-cloud-common spring.factories 里面存在 AutoServiceRegistrationAutoConfiguration
 @SpringBootApplication
 public class GatewayApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
     }
-
-
-
 }
