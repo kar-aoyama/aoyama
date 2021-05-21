@@ -18,7 +18,8 @@ dependencies {
     compile(project(":aoyama-common")) {
         exclude module: 'spring-boot-starter-web'
     }
-
+    compile 'org.springframework.cloud:spring-cloud-starter-zipkin'
+    compile 'org.springframework.cloud:spring-cloud-starter-sleuth'
 }
 
 test {

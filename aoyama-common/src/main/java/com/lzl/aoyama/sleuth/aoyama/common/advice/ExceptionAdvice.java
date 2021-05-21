@@ -29,7 +29,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(GlobalException.class)
     public CommonResponse<String> handleEagleException(
             GlobalException e, HttpServletRequest request, HttpServletResponse response) {
-        log.error("request-url:{},exception:{}" + request.getRequestURI(), e.getMessage());
+        log.error("request-url:{},exception:{}", request.getRequestURI(), e.getMessage());
         return CommonResponse.exception(e);
     }
 

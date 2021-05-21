@@ -4,6 +4,18 @@ server:
 spring:
   application:
     name: user
+  sleuth:
+    web:
+      client:
+        enabled: true
+      enabled: true
+    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
+    sampler:
+      probability: 1.0
+    zipkin:
+      base-url: "http://localhost:9411/"
+      sender:
+        type: web
   cloud:
     nacos:
       discovery:
@@ -19,9 +31,6 @@ spring:
 feign:
   httpclient:
     enabled: true
-  compression:
-    request:
-      min-request-size: 10420000
 
 security:
   oauth2:
@@ -32,14 +41,15 @@ security:
       user-authorization-uri: "http://127.0.0.1:8086/oauth/authorize"
     resource:
       jwt:
+        #(如果使用JWT，可以获的公钥用于 token 的验签)
         key-uri: "http://127.0.0.1:8086/oauth/token_key"
 
-logging:
-  level:
-    root: debug
-    org:
-      springframework:
-        cloud:
-          gateway:
-            filter:
-              LoadBalancerClientFilter : debug
+#logging:
+#  level:
+#    root: debug
+#    org:
+#      springframework:
+#        cloud:
+#          gateway:
+#            filter:
+#              LoadBalancerClientFilter : debug

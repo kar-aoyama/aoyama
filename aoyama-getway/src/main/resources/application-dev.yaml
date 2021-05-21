@@ -3,7 +3,19 @@ server:
 
 spring:
   application:
-    name: apyama-getway
+    name: getway
+  sleuth:
+    web:
+      client:
+        enabled: true
+      enabled: true
+    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
+    sampler:
+      probability: 1.0
+    zipkin:
+      base-url: "http://localhost:9411/"
+      sender:
+        type: web
   datasource:
     hikari:
       url: "jdbc:mysql://127.0.0.1/?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"

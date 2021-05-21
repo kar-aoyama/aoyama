@@ -1,4 +1,4 @@
-package com.lzl.aoyama.sleuth.aoyama.gateway;
+package com.lzl.aoyama.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

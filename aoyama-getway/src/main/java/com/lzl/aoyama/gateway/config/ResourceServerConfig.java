@@ -1,4 +1,4 @@
-package com.lzl.aoyama.sleuth.aoyama.gateway.config;
+package com.lzl.aoyama.gateway.config;
 
 
 import lombok.extern.slf4j.Slf4j;
