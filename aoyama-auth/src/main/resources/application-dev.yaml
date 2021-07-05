@@ -8,11 +8,11 @@ spring:
     username: root
     password: lzl0502
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://127.0.0.1/aoyama_auth?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
+    url: "jdbc:mysql://121.5.162.245:3306/aoyama_auth?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
   redis:
     database: 0
     port: 6379
-    host: redis://127.0.0.1
+    host: 121.5.162.245
     password: lzl0502
     lettuce:
       pool:
@@ -25,7 +25,7 @@ spring:
     nacos:
       # 服务注册
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: http://121.5.162.245:8848
         namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
         group: ${spring.profiles.active}
   # 开启采集链路
@@ -36,7 +36,7 @@ spring:
     sampler:
       probability: 1.0
     zipkin:
-      base-url: "http://localhost:9411/"
+      base-url: "http://121.5.162.245:9411/"
       sender:
         type: web
 
