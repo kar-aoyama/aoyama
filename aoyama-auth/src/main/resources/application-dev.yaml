@@ -12,7 +12,7 @@ spring:
   redis:
     database: 0
     port: 6379
-    host: 121.5.162.245
+    host: redis://127.0.0.1
     password: lzl0502
     lettuce:
       pool:
@@ -29,16 +29,16 @@ spring:
         namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
         group: ${spring.profiles.active}
   # 开启采集链路
-#  sleuth:
-#    web:
-#      enabled: true
-#    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
-#    sampler:
-#      probability: 1.0
-#    zipkin:
-#      base-url: "http://localhost:9411/"
-#      sender:
-#        type: web
+  sleuth:
+    web:
+      enabled: true
+    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
+    sampler:
+      probability: 1.0
+    zipkin:
+      base-url: "http://121.5.162.245:9411/"
+      sender:
+        type: web
 
 feign:
   httpclient:

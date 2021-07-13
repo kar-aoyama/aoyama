@@ -25,6 +25,7 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
@@ -38,7 +39,7 @@ import java.security.KeyPair;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-
+    SecurityFilterChain securityFilterChain;
     @Autowired
     private DataSource dataSource;
     @Autowired
