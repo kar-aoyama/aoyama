@@ -16,7 +16,7 @@ buildscript {
 }
 
 allprojects {
-    group = 'com.zx'
+    group = 'com.lzl'
     version = '0.0.1-SNAPSHOT'
 
     repositories {
@@ -35,8 +35,8 @@ allprojects {
         set('lombokVersion', "1.18.10")
         set('guavaVersion', "28.1-jre")
         set('commonsLangversion', "3.9")
-        set('springCloudAlibabaVersion', "2.2.1.RELEASE")
-        set('springCloudVersion', "Hoxton.SR6")
+        set('springCloudAlibabaVersion', "2.2.6.RELEASE")
+        set('springCloudVersion', "Hoxton.SR12")
     }
 
     dependencies {
@@ -62,8 +62,9 @@ subprojects {
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-        implementation('org.springframework.cloud:spring-cloud-starter') {
+        compile('org.springframework.cloud:spring-cloud-starter') {
             exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
+            exclude group: 'org.springframework.cloud', module: 'spring-cloud-starter-sleuth'
         }
         compile 'com.alibaba:fastjson:1.2.76'
         compile("org.hibernate.validator:hibernate-validator:6.1.0.Final")
@@ -74,6 +75,6 @@ subprojects {
         }
     }
 }
-test{
+test {
     useJUnitPlatform()
 }

@@ -4,18 +4,18 @@ server:
 spring:
   application:
     name: user
-#  sleuth:
-#    web:
-#      client:
-#        enabled: true
-#      enabled: true
-#    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
-#    sampler:
-#      probability: 1.0
-#    zipkin:
-#      base-url: "http://121.5.162.245:9411/"
-#      sender:
-#        type: web
+  sleuth:
+    web:
+      client:
+        enabled: true
+      enabled: true
+    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
+    sampler:
+      probability: 1.0
+    zipkin:
+      base-url: "http://121.5.162.245:9411/"
+      sender:
+        type: web
   cloud:
     nacos:
       discovery:
@@ -31,6 +31,15 @@ spring:
 feign:
   httpclient:
     enabled: true
+  hystrix:
+    enabled: false
+
+ribbon:
+  http:
+    client:
+      enabled: false
+  restclient:
+    enabled: false
 
 security:
   oauth2:
