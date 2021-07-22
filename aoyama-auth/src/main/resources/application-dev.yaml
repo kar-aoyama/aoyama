@@ -45,6 +45,26 @@ feign:
     enabled: true
 
 
+#配置分布式事务
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  # 事务分组
+  tx-service-group: aoyama-user
+  #开启数据库代理
+  enable-auto-data-source-proxy: true
+  # 配置server端服务
+  config:
+    nacos:
+      group: global_seata
+      namespace: ${spring.cloud.nacos.discovery.namespace}
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+  registry:
+    nacos:
+      application: seata-server
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
+
 #logging:
 #  level:
 #    root: debug
