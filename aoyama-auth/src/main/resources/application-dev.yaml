@@ -10,17 +10,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://121.5.162.245:3306/aoyama_auth?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
   redis:
-    database: 0
+    host: 121.5.162.245
     port: 6379
-    host: redis://127.0.0.1
-    password: lzl0502
-    lettuce:
-      pool:
-        max-idle: 8
-        min-idle: 5
-        max-active: 10
-        max-wait: 1000
-    timeout: 1000
+    database: 0
   cloud:
     nacos:
       # 服务注册
@@ -28,9 +20,11 @@ spring:
         server-addr: 121.5.162.245:8848
         namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
         group: ${spring.profiles.active}
-  # 开启采集链路
+  # 链路跟踪
   sleuth:
     web:
+      client:
+        enabled: true
       enabled: true
     # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
     sampler:
@@ -50,16 +44,18 @@ seata:
   enabled: true
   application-id: ${spring.application.name}
   # 事务分组
-  tx-service-group: aoyama-user
+  tx-service-group: global_seata
   #开启数据库代理
   enable-auto-data-source-proxy: true
   # 配置server端服务
   config:
+    type: nacos
     nacos:
-      group: global_seata
+      group: "global_seata"
       namespace: ${spring.cloud.nacos.discovery.namespace}
       server-addr: ${spring.cloud.nacos.discovery.server-addr}
   registry:
+    type: nacos
     nacos:
       application: seata-server
       server-addr: ${spring.cloud.nacos.discovery.server-addr}

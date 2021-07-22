@@ -5,4 +5,6 @@ include 'aoyama-user'
 include 'user-api'
 include 'common-api'
 include 'auth-api'
+include 'aoyama-workflow'
+include 'workflow-api'
 

@@ -15,7 +15,6 @@ dependencies {
     compile 'org.springframework.cloud:spring-cloud-starter-zipkin'
     compile 'org.springframework.cloud:spring-cloud-starter-sleuth'
 
-   // implementation "org.springframework.session:spring-session-data-redis"
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compile('org.springframework.cloud:spring-cloud-starter-oauth2')
     compile 'mysql:mysql-connector-java:8.0.24'
