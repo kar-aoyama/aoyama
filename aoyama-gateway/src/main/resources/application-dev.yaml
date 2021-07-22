@@ -4,18 +4,19 @@ server:
 spring:
   application:
     name: getway
-  sleuth:
-    web:
-      client:
-        enabled: true
-      enabled: true
-    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
-    sampler:
-      probability: 1.0
-    zipkin:
-      base-url: "http://121.5.162.245:9411/"
-      sender:
-        type: web
+  #链路追踪 服务器资源不够
+  #  sleuth:
+  #    web:
+  #      client:
+  #        enabled: true
+  #      enabled: true
+  #    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
+  #    sampler:
+  #      probability: 1.0
+  #    zipkin:
+  #      base-url: "http://121.5.162.245:9411/"
+  #      sender:
+  #        type: web
   redis:
     host: 121.5.162.245
     port: 6379

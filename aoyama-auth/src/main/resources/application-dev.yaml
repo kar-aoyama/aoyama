@@ -20,19 +20,24 @@ spring:
         server-addr: 121.5.162.245:8848
         namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
         group: ${spring.profiles.active}
-  # 链路跟踪
-  sleuth:
-    web:
-      client:
-        enabled: true
-      enabled: true
-    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
-    sampler:
-      probability: 1.0
-    zipkin:
-      base-url: "http://121.5.162.245:9411/"
-      sender:
-        type: web
+    alibaba:
+      seata:
+        tx-service-group: aoyama
+
+
+  # 链路跟踪  服务器资源不够
+#  sleuth:
+#    web:
+#      client:
+#        enabled: true
+#      enabled: true
+#    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
+#    sampler:
+#      probability: 1.0
+#    zipkin:
+#      base-url: "http://121.5.162.245:9411/"
+#      sender:
+#        type: web
 
 feign:
   httpclient:
@@ -44,20 +49,19 @@ seata:
   enabled: true
   application-id: ${spring.application.name}
   # 事务分组
-  tx-service-group: global_seata
+  tx-service-group: aoyama
   #开启数据库代理
   enable-auto-data-source-proxy: true
-  # 配置server端服务
+  # 配置服务
   config:
     type: nacos
     nacos:
-      group: "global_seata"
-      namespace: ${spring.cloud.nacos.discovery.namespace}
+      group: SEATA_GROUP
       server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
   registry:
     type: nacos
     nacos:
-      application: seata-server
       server-addr: ${spring.cloud.nacos.discovery.server-addr}
       namespace: ${spring.cloud.nacos.discovery.namespace}
 

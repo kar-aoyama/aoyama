@@ -13,7 +13,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @EnableFeignClients
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = "com.lzl.aoyama")
+@SpringBootApplication(scanBasePackages = "com.lzl.aoyama"
+        //排除掉 不然seata不生效
+        //,exclude = {DataSourceAutoConfiguration.class}
+)
 public class UserApplication {
 
     public static void main(String[] args) {

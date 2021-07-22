@@ -16,7 +16,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 //开启feign客户端
 @EnableFeignClients
 //指定包名是为了解决不会扫描common 模块
-@SpringBootApplication(scanBasePackages = "com.lzl.aoyama")
+@SpringBootApplication(scanBasePackages = "com.lzl.aoyama"
+        //排除掉 不然seata不生效
+        //,exclude = {DataSourceAutoConfiguration.class}
+)
 public class AuthApplication {
 
     public static void main(String[] args) {
