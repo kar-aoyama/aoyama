@@ -66,17 +66,18 @@ seata:
   tx-service-group: aoyama
   #开启数据库代理
   enable-auto-data-source-proxy: true
-  # 配置server端服务
+  # 配置服务
   config:
     type: nacos
     nacos:
       group: SEATA_GROUP
       server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
   registry:
     type: nacos
     nacos:
-      application: "seata-server"
       server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
 
 
 #logging:
