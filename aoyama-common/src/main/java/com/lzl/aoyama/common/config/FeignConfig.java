@@ -1,12 +1,12 @@
 package com.lzl.aoyama.common.config;
 
+import cn.hutool.core.util.StrUtil;
 import feign.RequestInterceptor;
-import feign.RequestTemplate;
+import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -15,9 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
 import java.util.Enumeration;
-import java.util.Map;
 
 /**
  * @author lzl
@@ -40,7 +38,7 @@ public class FeignConfig {
             }
             HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
             Enumeration<String> headerNames = request.getHeaderNames();
-
+            //解决feign 丢失请求头信息
             while (headerNames.hasMoreElements()) {
                 String headerName = headerNames.nextElement();
                 Enumeration<String> headerValues = request.getHeaders(headerName);
@@ -50,6 +48,7 @@ public class FeignConfig {
                 }
             }
 
+            //设置认证信息
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication instanceof OAuth2Authentication) {
                 OAuth2AuthenticationDetails details =
@@ -58,6 +57,14 @@ public class FeignConfig {
                 String tokenValue = details.getTokenValue();
                 template.header("Authorization", tokenType + " " + tokenValue);
             }
+
+            //设置分布式事务xid
+            String xid = RootContext.getXID();
+            if (StrUtil.isNotBlank(xid)) {
+                template.header(RootContext.KEY_XID, xid);
+                log.info("分布式事务id：{}", xid);
+            }
+
         };
     }
 }

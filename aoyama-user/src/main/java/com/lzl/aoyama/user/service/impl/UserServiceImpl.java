@@ -1,18 +1,17 @@
 package com.lzl.aoyama.user.service.impl;
 
-import com.lzl.aoyama.user.service.dto.UserAccountDto;
-import com.lzl.aoyama.user.entity.UserEntity;
 import com.lzl.aoyama.auth.api.dto.AccountDto;
 import com.lzl.aoyama.common.exception.GlobalException;
 import com.lzl.aoyama.common.response.CommonResponse;
 import com.lzl.aoyama.common.util.UUidUtil;
+import com.lzl.aoyama.user.entity.UserEntity;
 import com.lzl.aoyama.user.fegin.IAccountAPI;
-import com.lzl.aoyama.user.service.UserService;
 import com.lzl.aoyama.user.repository.UserRepository;
+import com.lzl.aoyama.user.service.UserService;
+import com.lzl.aoyama.user.service.dto.UserAccountDto;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -32,8 +31,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private IAccountAPI accountAPI;
 
-
-    @Transactional(rollbackFor = Exception.class)
+    @GlobalTransactional(rollbackFor = Exception.class)
     @Override
     public String saveUser(UserAccountDto userAccountDto) throws GlobalException {
         CommonResponse<Boolean> response = accountAPI.hasAccount(userAccountDto.getPhone());

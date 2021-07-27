@@ -39,6 +39,11 @@ spring:
           uri: "http://127.0.0.1:8086"
           predicates:
             - Path=/auth/**
+
+        - id: aoyama_workflow
+          uri: "http://127.0.0.1:7999"
+          predicates:
+            - Path=/workflow/**
 feign:
   httpclient:
     enabled: true
@@ -53,6 +58,27 @@ security:
         - all
       user-authorization-uri: "http://127.0.0.1:8086/oauth/authorize"
 
+
+#配置分布式事务
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  # 事务分组
+  tx-service-group: aoyama
+  #开启数据库代理
+  enable-auto-data-source-proxy: true
+  # 配置服务
+  config:
+    type: nacos
+    nacos:
+      group: SEATA_GROUP
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
+  registry:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
 
 #logging:
 #  level:
