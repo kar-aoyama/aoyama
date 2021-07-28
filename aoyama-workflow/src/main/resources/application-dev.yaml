@@ -7,7 +7,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 121.5.162.245:8848
+        server-addr: 81.68.170.150:8848
         namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
         group: ${spring.profiles.active}
   datasource:
@@ -15,7 +15,7 @@ spring:
     password: lzl0502
     driver-class-name: com.mysql.cj.jdbc.Driver
     #加上 nullCatalogMeansCurrent=true 帮忙创建activiti 表结构
-    url: "jdbc:mysql://121.5.162.245:3306/aoyama_workflow?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&nullCatalogMeansCurrent=true"
+    url: "jdbc:mysql://81.68.170.150:3306/aoyama_workflow?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&nullCatalogMeansCurrent=true"
   activiti:
     #flase： 默认值。activiti在启动时，会对比数据库表中保存的版本，如果没有表或者版本不匹配，将抛出异常。
     #true： activiti会对数据库中所有表进行更新操作。如果表不存在，则自动创建。

@@ -4,17 +4,6 @@ import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.spring.data.connection.RedissonConnectionFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-
-import java.io.IOException;
-
-import org.redisson.Redisson;
-import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
-import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -31,7 +20,7 @@ public class RedisConfig {
         Config config = new Config();
         //单机版
         config.useSingleServer()
-                .setAddress("redis://121.5.162.245:6379").setPassword("lzl0502");
+                .setAddress("redis://81.68.170.150:6379").setPassword("lzl0502");
 
         return Redisson.create(config);
     }

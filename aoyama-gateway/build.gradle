@@ -14,9 +14,9 @@ dependencies {
     //解决webflux 里面 jar包冲突
     implementation group: 'io.projectreactor.netty', name: 'reactor-netty', version: '0.9.14.RELEASE'
     //gateway 不能有webmvc模块
-//    compile(project(":aoyama-common")) {
-//        exclude module: 'spring-boot-starter-web'
-//    }
+    compile(project(":aoyama-common")) {
+        exclude module: 'spring-boot-starter-web'
+    }
     implementation('org.springframework.cloud:spring-cloud-starter-gateway')
 
 //    implementation "org.springframework.session:spring-session-data-redis"
