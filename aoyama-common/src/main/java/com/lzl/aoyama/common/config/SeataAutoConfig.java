@@ -3,10 +3,8 @@ package com.lzl.aoyama.common.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import io.seata.rm.datasource.DataSourceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 /**
@@ -15,8 +13,8 @@ import org.springframework.context.annotation.Primary;
  * @date: 2021/7/22 下午3:49
  * @Description:
  */
-@Configuration
-@ConditionalOnProperty("seata.type")
+//@Configuration
+//@ConditionalOnProperty("seata.type")
 public class SeataAutoConfig  {
     @Autowired
     private DataSourceProperties dataSourceProperties;
