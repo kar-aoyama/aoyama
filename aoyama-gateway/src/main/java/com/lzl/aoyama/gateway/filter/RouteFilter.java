@@ -6,7 +6,6 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -40,10 +39,11 @@ public class RouteFilter implements GlobalFilter, Ordered {
             for (String grayValue : headerValues) {
                 loadBalancerKey.add(grayValue);
             }
-            exchange.getAttributes().put(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR,loadBalancerKey);
+            //修改负载均衡
+            exchange.getAttributes().put(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR, loadBalancerKey);
         }
         log.info("loadBalancerKey->>>>>>>>>>>>>{}", loadBalancerKey);
-        return  chain.filter(exchange);
+        return chain.filter(exchange);
     }
 
     @Override
