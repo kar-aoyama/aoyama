@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  * @date: 2021/5/17 下午2:36
  * @Description:
  */
-
+@RequestMapping("/account")
 public interface AccountAPI {
 
     @PostMapping(value = "saveAccount")

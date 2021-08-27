@@ -52,12 +52,16 @@ public class CommonResponse<T> implements Serializable {
     }
 
     public boolean unSuccess() {
-        return this.code != HttpStatus.HTTP_OK;
+        return !isSuccess();
     }
 
 
-    public static <T> CommonResponse<T> exceptionInstance(GlobalException e, String message) {
+    public static <T> CommonResponse<T> exceptionInstance(GlobalException e) {
         return exceptionInstance(e, e.getMessage());
+    }
+
+    public static <T> CommonResponse<T> exceptionInstance(GlobalException e, String message) {
+        return new CommonResponse<T>(Integer.parseInt(e.getCode()), message);
     }
 
     public String toJson() {
