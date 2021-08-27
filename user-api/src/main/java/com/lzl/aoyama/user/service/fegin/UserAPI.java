@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 
-@RequestMapping("/user")
+@RequestMapping("/account")
 public interface UserAPI {
 
     @PermissionCheck(required = false)

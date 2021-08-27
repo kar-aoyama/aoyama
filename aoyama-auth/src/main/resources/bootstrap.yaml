@@ -13,3 +13,5 @@ spring:
         group: dev
         name: aoyama-auth.yaml
         file-extension: yaml
+  profiles:
+    active: dev
