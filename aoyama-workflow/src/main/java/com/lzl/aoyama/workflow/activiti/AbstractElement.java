@@ -1,7 +1,7 @@
 package com.lzl.aoyama.workflow.activiti;
 
 /**
- * @author simba@onlying.cn
+ * @author lzl
  * @date 2021/9/7 17:31
  * @Description:
  */

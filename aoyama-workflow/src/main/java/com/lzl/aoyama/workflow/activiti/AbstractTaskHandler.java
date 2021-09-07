@@ -3,7 +3,7 @@ package com.lzl.aoyama.workflow.activiti;
 import com.lzl.aoyama.workflow.api.dto.AbstractTaskInfo;
 
 /**
- * @author simba@onlying.cn
+ * @author lzl
  * @date 2021/9/7 16:39
  * @Description: 抽象task 处理
  */

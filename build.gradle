@@ -65,6 +65,7 @@ subprojects {
         compile('org.springframework.cloud:spring-cloud-starter') {
             exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
             exclude group: 'org.springframework.cloud', module: 'spring-cloud-starter-sleuth'
+            exclude group: 'jakarta.annotation', module: 'jakarta.annotation-api'
         }
         compile 'com.alibaba:fastjson:1.2.76'
         compile("org.hibernate.validator:hibernate-validator:6.1.0.Final")

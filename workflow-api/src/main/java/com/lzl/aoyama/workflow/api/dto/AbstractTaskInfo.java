@@ -4,7 +4,7 @@ import com.lzl.aoyama.workflow.api.enums.Approve;
 import lombok.Data;
 
 /**
- * @author simba@onlying.cn
+ * @author lzl
  * @date 2021/9/7 17:12
  * @Description: task 代办完成必要数据
  */

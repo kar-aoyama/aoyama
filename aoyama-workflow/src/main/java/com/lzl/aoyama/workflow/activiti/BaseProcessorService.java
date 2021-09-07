@@ -1,15 +1,20 @@
 package com.lzl.aoyama.workflow.activiti;
 
+import cn.hutool.core.util.StrUtil;
+import com.google.common.base.Preconditions;
+import com.lzl.aoyama.workflow.api.dto.ExecutionPerson;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.StartEvent;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * @author lzl
@@ -17,7 +22,7 @@ import java.util.Collection;
  * @date: 2021/7/23 下午4:59
  * @Description:
  */
-public abstract class BaseProcessorService {
+public abstract class BaseProcessorService extends AbstractActivitiService {
 
     //流程节点定义
     private ProcessDefinition processDefinition;
@@ -50,17 +55,52 @@ public abstract class BaseProcessorService {
     protected abstract String processorKey();
 
     //启动流程
-    public void startProcess(){
+    public void startProcess(String processDefinitionKey, String businessKey,
+                             ExecutionPerson execution,
+                             Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
+        Preconditions.checkArgument(StrUtil.isBlankIfStr(businessKey),"businessKey is empty");
         // startProcessBefore
+        startProcessBefore(processorKey(), businessKey, execution, nodeDataMap, variableMap);
         //逻辑
         // startProcessAfter
+        startProcessAfter(processorKey(), businessKey, execution, nodeDataMap, variableMap);
+    }
+
+    public void startProcessBefore(String processDefinitionKey, String businessKey,
+                                   ExecutionPerson executionPerson,
+                                   Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
+
+    }
+
+    public void startProcessAfter(String processDefinitionKey, String businessKey,
+                                  ExecutionPerson executionPerson,
+                                  Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
+
     }
 
     //完成代办任务执行
-    public void completeTask(){
+    public void completeTask(String businessKey,
+                             ExecutionPerson executionPerson,
+                             Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
+        //执行人id
+        String executionId = executionPerson.getId();
+
+        completeTaskBefore(processorKey(), businessKey, , nodeDataMap, variableMap);
         // completeTaskBefore
         //逻辑
         //completeTaskAfter
+        completeTaskAfter(processorKey(), businessKey, executionPerson, nodeDataMap, variableMap);
     }
 
+    public void completeTaskBefore(String processDefinitionKey, String businessKey,
+                                   ExecutionPerson executionPerson,
+                                   Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
+
+    }
+
+    public void completeTaskAfter(String processDefinitionKey, String businessKey,
+                                  ExecutionPerson executionPerson,
+                                  Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
+
+    }
 }
