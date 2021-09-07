@@ -1,8 +1,6 @@
 package com.lzl.aoyama.workflow.activiti;
 
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
+import org.activiti.engine.*;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -25,6 +23,12 @@ public class AbstractActivitiService implements ApplicationContextAware {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private FormService formService;
+
+    @Autowired
+    private HistoryService historyService;
 
     private ApplicationContext applicationContext;
 

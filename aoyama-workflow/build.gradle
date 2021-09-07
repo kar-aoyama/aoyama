@@ -19,6 +19,7 @@ dependencies {
     compile project(':aoyama-common')
     compile project(':user-api')
     compile project(':auth-api')
+    compile project(':workflow-api')
 }
 
 test {

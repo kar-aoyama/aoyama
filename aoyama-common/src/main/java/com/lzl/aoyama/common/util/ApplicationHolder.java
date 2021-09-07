@@ -65,9 +65,7 @@ public class ApplicationHolder implements ApplicationContextAware {
         return urls;
     }
 
-
-
-
-
-
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
 }
