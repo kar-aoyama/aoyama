@@ -21,14 +21,17 @@ public class ActivitiTaskListen implements TaskListener, ExecutionListener {
 
     @Override
     public void notify(DelegateExecution execution) {
-        Map<String, AbstractElement> handlerMap =
+        Map<String, AbstractElement> elementMap =
                 ApplicationHolder.getApplicationContext().getBeansOfType(AbstractElement.class);
-        if (CollUtil.isEmpty(handlerMap)){
+        if (CollUtil.isEmpty(elementMap)) {
             return;
         }
-        //获取执行流程节点id
-        String id = execution.getId();
-        AbstractElement element = handlerMap.get(id);
+        //获取当前正在执行的ActivitiId
+        String currentActivityId = execution.getCurrentActivityId();
+        AbstractElement abstractElement = elementMap.get(currentActivityId);
+        if (Objects.isNull(abstractElement)) {
+            abstractElement.notify(execution);
+        }
     }
 
     @Override

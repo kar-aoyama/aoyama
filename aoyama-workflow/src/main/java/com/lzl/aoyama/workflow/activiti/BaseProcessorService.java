@@ -1,8 +1,11 @@
 package com.lzl.aoyama.workflow.activiti;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.base.Preconditions;
+import com.lzl.aoyama.common.exception.GlobalException;
 import com.lzl.aoyama.workflow.api.dto.ExecutionPerson;
+import com.lzl.aoyama.workflow.handler.UserTaskHandler;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
@@ -10,11 +13,14 @@ import org.activiti.bpmn.model.StartEvent;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.Execution;
+import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author lzl
@@ -32,9 +38,12 @@ public abstract class BaseProcessorService extends AbstractActivitiService {
 
     //启动事件
     private StartEvent startEvent;
+
     @Autowired
     private RepositoryService repositoryService;
 
+    @Autowired
+    private Map<String, UserTaskHandler> handlerMap = new HashMap<>();
 
     //在依赖注入后执行
     @PostConstruct
@@ -58,7 +67,7 @@ public abstract class BaseProcessorService extends AbstractActivitiService {
     public void startProcess(String processDefinitionKey, String businessKey,
                              ExecutionPerson execution,
                              Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
-        Preconditions.checkArgument(StrUtil.isBlankIfStr(businessKey),"businessKey is empty");
+        Preconditions.checkArgument(StrUtil.isBlankIfStr(businessKey), "businessKey is empty");
         // startProcessBefore
         startProcessBefore(processorKey(), businessKey, execution, nodeDataMap, variableMap);
         //逻辑
@@ -79,28 +88,33 @@ public abstract class BaseProcessorService extends AbstractActivitiService {
     }
 
     //完成代办任务执行
-    public void completeTask(String businessKey,
+    public void completeTask(String taskId,
+                             String businessKey,
                              ExecutionPerson executionPerson,
-                             Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
+                             Map<String, Object> nodeDataMap,
+                             Map<String, Object> variableMap) throws GlobalException {
         //执行人id
-        String executionId = executionPerson.getId();
+        String executionPersonId = executionPerson.getId();
+        Preconditions.checkArgument(StrUtil.isBlank(taskId), "taskId is empty");
+        Task task = queryTask(taskId, executionPersonId);
+        Preconditions.checkArgument(Objects.isNull(task), "task not found");
+        //获取task 定义key
+        String taskDefinitionKey = task.getTaskDefinitionKey();
+        UserTaskHandler userTaskHandler = handlerMap.get(taskDefinitionKey);
+        if (Objects.isNull(userTaskHandler)) {
+            throw GlobalException.newInstance("userTaskHandler not Found");
+        }
 
-        completeTaskBefore(processorKey(), businessKey, , nodeDataMap, variableMap);
+        userTaskHandler.completeTaskBefore(businessKey, executionPerson, nodeDataMap, variableMap);
         // completeTaskBefore
         //逻辑
         //completeTaskAfter
-        completeTaskAfter(processorKey(), businessKey, executionPerson, nodeDataMap, variableMap);
+        if (CollUtil.isNotEmpty(variableMap)) {
+            taskService.complete(taskId, variableMap);
+        } else {
+            taskService.complete(taskId);
+        }
+        userTaskHandler.completeTaskAfter(businessKey, executionPerson, nodeDataMap, variableMap);
     }
 
-    public void completeTaskBefore(String processDefinitionKey, String businessKey,
-                                   ExecutionPerson executionPerson,
-                                   Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
-
-    }
-
-    public void completeTaskAfter(String processDefinitionKey, String businessKey,
-                                  ExecutionPerson executionPerson,
-                                  Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
-
-    }
 }

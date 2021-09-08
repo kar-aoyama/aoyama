@@ -18,21 +18,21 @@ public class AbstractActivitiService implements ApplicationContextAware, IActivi
 
 
     @Autowired
-    private RuntimeService runtimeService;
+    protected RuntimeService runtimeService;
 
     @Autowired
-    private RepositoryService repositoryService;
+    protected RepositoryService repositoryService;
 
     @Autowired
-    private TaskService taskService;
+    protected TaskService taskService;
 
     @Autowired
-    private FormService formService;
+    protected FormService formService;
 
     @Autowired
-    private HistoryService historyService;
+    protected HistoryService historyService;
 
-    private ApplicationContext applicationContext;
+    protected ApplicationContext applicationContext;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
