@@ -19,4 +19,7 @@ public class MsgContent {
 
     //发送目标
     private String[] to;
+
+    //是否广播
+    private boolean isBroadCast;
 }
