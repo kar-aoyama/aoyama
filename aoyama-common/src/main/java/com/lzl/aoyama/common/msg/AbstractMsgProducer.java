@@ -1,5 +1,14 @@
 package com.lzl.aoyama.common.msg;
 
+import com.google.common.collect.Maps;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.MessageBuilder;
+
+import java.util.Map;
+
 /**
  * @author lzl
  * @ClassName AbstractMsgProducer
@@ -8,5 +17,5 @@ package com.lzl.aoyama.common.msg;
  */
 public abstract class AbstractMsgProducer {
 
-    protected abstract void send(MsgContent msgContent);
+
 }

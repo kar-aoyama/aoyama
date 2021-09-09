@@ -1,7 +1,6 @@
 package com.lzl.aoyama.common.msg.annotation;
 
 import com.lzl.aoyama.common.msg.AbstractMsgProducer;
-import com.lzl.aoyama.common.msg.MessageQueueMsgSend;
 
 import java.lang.annotation.*;
 
@@ -14,8 +13,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface EnableMsgProducer {
-
-    Class<? extends MessageQueueMsgSend> value();
 
 
     Class<? extends AbstractMsgProducer> producer();
