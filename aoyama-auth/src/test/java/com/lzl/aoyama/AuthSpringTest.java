@@ -2,11 +2,8 @@ package com.lzl.aoyama;
 
 import com.google.common.collect.Maps;
 import com.lzl.aoyama.auth.AuthApplication;
-import com.lzl.aoyama.common.msg.MessageQueueMsgSubscription;
 import com.lzl.aoyama.common.msg.MsgContent;
 import com.lzl.aoyama.common.util.UUidUtil;
-import org.apache.rocketmq.client.producer.SendCallback;
-import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,8 +21,6 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.sql.DataSource;
-import javax.ws.rs.core.Application;
 import java.util.Map;
 
 /**
