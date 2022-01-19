@@ -6,6 +6,8 @@ import com.lzl.aoyama.user.service.UserService;
 import com.lzl.aoyama.user.service.dto.UserAccountDto;
 import com.lzl.aoyama.user.service.fegin.UserAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,12 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController implements UserAPI {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Override
     public CommonResponse<String> saveUser(UserAccountDto userAccountDto) throws GlobalException {
         return CommonResponse.success(userService.saveUser(userAccountDto));
     }
-
 
 }
