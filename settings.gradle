@@ -7,4 +7,5 @@ include 'common-api'
 include 'auth-api'
 include 'aoyama-workflow'
 include 'workflow-api'
+include 'aoyama-file'
 

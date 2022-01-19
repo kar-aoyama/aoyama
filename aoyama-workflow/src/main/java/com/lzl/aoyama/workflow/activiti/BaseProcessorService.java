@@ -12,7 +12,6 @@ import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.StartEvent;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -53,6 +52,9 @@ public abstract class BaseProcessorService extends AbstractActivitiService {
         //通过不同流程定义id 获取流程实例id
         BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinition.getId());
         //获取流程
+
+
+
         Process process = bpmnModel.getProcessById(processorKey());
         //获取所有流程节点
         flowElements = process.getFlowElements();

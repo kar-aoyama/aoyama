@@ -1,0 +1,86 @@
+server:
+  port: 6666
+
+spring:
+  #链路追踪 服务器资源不够
+  #  sleuth:
+  #    web:
+  #      client:
+  #        enabled: true
+  #      enabled: true
+  #    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
+  #    sampler:
+  #      probability: 1.0
+  #    zipkin:
+  #      base-url: "http://81.68.170.150:9411/"
+  #      sender:
+  #        type: web
+  redis:
+    host: 81.68.170.150
+    port: 6379
+    database: 0
+  cloud:
+    #消息中间件配置
+    stream:
+      rocketmq:
+        binder:
+          name-server: "81.68.170.150:9876"
+        bindings:
+          broadCastInput:
+            consumer:
+              enabled: true
+              broadcasting: true
+      default-binder: rocketmq
+      bindings:
+        # 默认是点对点
+        input:
+          destination: cluster_msg_topic
+          group: cluster_msg_group
+        # 接受广播消息
+        broadCastInput:
+          destination: broadcast_msg_topic
+          group: broadcast_msg_group
+    gateway:
+      routes:
+        - id: aoyama-user
+          uri: lb://user
+          predicates:
+            - Path=/user/**
+        - id: aoyama-auth
+          uri: lb://auth
+          predicates:
+            - Path=/auth/**
+        - id: aoyama_workflow
+          uri: lb://workflow
+          predicates:
+            - Path=/workflow/**
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+feign:
+  httpclient:
+    enabled: true
+
+security:
+  oauth2:
+    client:
+      client-id: app
+      client-secret: app
+      access-token-uri: "http://127.0.0.1:8086/oauth/token"
+      scope:
+        - all
+      user-authorization-uri: "http://127.0.0.1:8086/oauth/authorize"
+    resource:
+      jwt:
+        key-uri: "http://127.0.0.1:8080/oauth/token_key"
+
+#logging:
+#  level:
+#    root: debug
+#    org:
+#      springframework:
+#        cloud:
+#          gateway:
+#            filter:
+#              LoadBalancerClientFilter : TRACE

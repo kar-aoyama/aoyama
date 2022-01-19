@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: user
+    name: aoyama-user
   cloud:
     nacos:
       config:
@@ -13,3 +13,7 @@ spring:
         group: dev
         name: aoyama-user.yaml
         file-extension: yaml
+      discovery:
+        server-addr: 81.68.170.150:8848
+        namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
+        group: dev

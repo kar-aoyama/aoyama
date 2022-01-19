@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: aoyama-file
+  datasource:
+    username: root
+    password: lzl0502
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://81.68.170.150:3306/aoyama_auth?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
+  cloud: 
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-group  # 和seata config.txt 的service.vgroup_mapping 属性一样  
+
+minio:
+  endpoint: http://101.43.72.78:9000
+  bucketName: aoyama
+  accessKey: admin
+  secretKey: lzl983517
+
+#配置分布式事务
+#配置分布式事务
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  # 事务分组
+  tx-service-group: ${spring.application.name}-group
+  #开启数据库代理
+  enable-auto-data-source-proxy: true
+  # 配置服务
+  config:
+    type: nacos
+    nacos:
+      group: SEATA_GROUP
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
+  registry:
+    type: nacos
+    nacos:
+      group: SEATA_GROUP
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: ${spring.cloud.nacos.discovery.namespace}

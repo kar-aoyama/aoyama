@@ -37,9 +37,8 @@ public class ActivitiTaskListen implements TaskListener, ExecutionListener {
     @Override
     public void notify(DelegateTask delegateTask) {
         //不同的Handler 实现 UserTaskListen  从而获取不同的流程节点handler
+        DelegateExecution execution = delegateTask.getExecution();
         UserTaskListen userTaskHandler = ApplicationHolder.getApplicationContext().getBean(execution.getProcessInstanceBusinessKey(), UserTaskListen.class);
-        if (Objects.nonNull(userTaskHandler)) {
-            userTaskHandler.notify(delegateTask);
-        }
+        userTaskHandler.notify(delegateTask);
     }
 }

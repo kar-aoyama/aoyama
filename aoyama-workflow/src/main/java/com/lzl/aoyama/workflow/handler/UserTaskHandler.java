@@ -2,8 +2,11 @@ package com.lzl.aoyama.workflow.handler;
 
 import com.lzl.aoyama.workflow.activiti.AbstractTaskHandler;
 import com.lzl.aoyama.workflow.api.dto.AbstractTaskInfo;
+import com.lzl.aoyama.workflow.api.dto.ExecutionPerson;
 import com.lzl.aoyama.workflow.listen.UserTaskListen;
 import org.activiti.engine.delegate.DelegateTask;
+
+import java.util.Map;
 
 /**
  * @author lzl
@@ -18,7 +21,17 @@ public class UserTaskHandler extends AbstractTaskHandler implements UserTaskList
     }
 
     @Override
+    public void completeTaskBefore(String businessKey, ExecutionPerson executionPerson, Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
+        
+    }
+
+    @Override
     public void complete(AbstractTaskInfo taskInfo) {
+
+    }
+
+    @Override
+    public void completeTaskAfter(String businessKey, ExecutionPerson executionPerson, Map<String, Object> nodeDataMap, Map<String, Object> variableMap) {
 
     }
 

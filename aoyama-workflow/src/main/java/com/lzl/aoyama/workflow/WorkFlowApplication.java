@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @EnableDiscoveryClient
 @EnableFeignClients
-@SpringBootApplication(scanBasePackages = "com.lzl.aoyama",exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication(scanBasePackages = "com.lzl.aoyama", exclude = SecurityAutoConfiguration.class)
 public class WorkFlowApplication {
 
     public static void main(String[] args) {

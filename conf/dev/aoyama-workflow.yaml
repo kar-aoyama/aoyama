@@ -1,0 +1,113 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: aoyama-workflow
+  datasource:
+    username: root
+    password: lzl0502
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://81.68.170.150:3306/aoyama_workflow?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
+  #  链路追踪 服务器资源不够
+  #  sleuth:
+  #    web:
+  #      client:
+  #        enabled: true
+  #      enabled: true
+  #    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
+  #    sampler:
+  #      probability: 1.0
+  #    zipkin:
+  #      base-url: "http://81.68.170.150:9411/"
+  #      sender:
+  #        type: web
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 81.68.170.150:8848
+        namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
+        group: ${spring.profiles.active}
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-group
+    #消息中间件配置
+    stream:
+      rocketmq:
+        binder:
+          name-server: "81.68.170.150:9876"
+        bindings:
+          broadCastInput:
+            consumer:
+              enabled: true
+              broadcasting: true
+      default-binder: rocketmq
+      bindings:
+        # 默认是点对点
+        input:
+          destination: cluster_msg_topic
+          group: cluster_msg_group
+        # 接受广播消息
+        broadCastInput:
+          destination: broadcast_msg_topic
+          group: broadcast_msg_group
+
+
+feign:
+  httpclient:
+    enabled: true
+  hystrix:
+    enabled: false
+
+ribbon:
+  http:
+    client:
+      enabled: false
+  restclient:
+    enabled: false
+
+security:
+  oauth2:
+    client:
+      client-id: app
+      client-secret: app
+      access-token-uri: "http://127.0.0.1:8086/oauth/token"
+      user-authorization-uri: "http://127.0.0.1:8086/oauth/authorize"
+    resource:
+      jwt:
+        #(如果使用JWT，可以获的公钥用于 token 的验签)
+        key-uri: "http://127.0.0.1:8086/oauth/token_key"
+
+
+#配置分布式事务
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  # 事务分组
+  tx-service-group: ${spring.application.name}-group
+  #开启数据库代理
+  enable-auto-data-source-proxy: true
+  # 配置服务
+  config:
+    type: nacos
+    nacos:
+      group: SEATA_GROUP
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
+  registry:
+    type: nacos
+    nacos:
+      group: SEATA_GROUP
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
+
+
+#logging:
+#  level:
+#    root: debug
+#    org:
+#      springframework:
+#        cloud:
+#          gateway:
+#            filter:
+#              LoadBalancerClientFilter : debug
