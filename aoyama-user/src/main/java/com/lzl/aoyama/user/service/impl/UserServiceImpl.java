@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
     private UserEntity converterUserEntiry(UserAccountDto userAccountDto) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(UUidUtil.uid("us"));
+        userEntity.setPhone(userAccountDto.getPhone());
         userEntity.setEmail(userAccountDto.getEmail());
         userEntity.setIdCardNo(userAccountDto.getIdCardNo());
         userEntity.setIsAvailable(Boolean.TRUE);

@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: aoyama-workflow
+  profiles:
+    active: dev
   cloud:
     nacos:
       config:

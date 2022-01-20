@@ -15,6 +15,7 @@ dependencies {
     //gateway 不能有webmvc模块
     compile(project(":aoyama-common")) {
         exclude module: 'spring-boot-starter-web'
+        exclude module: 'spring-cloud-starter-stream-rocketmq'
     }
     implementation('org.springframework.cloud:spring-cloud-starter-gateway')
     implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config'

@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: aoyama-user
+  profiles:
+    active: dev
   cloud:
     nacos:
       config:
