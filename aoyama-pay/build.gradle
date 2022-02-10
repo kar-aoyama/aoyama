@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+group 'com.lzl'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':aoyama-common')
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile 'mysql:mysql-connector-java:8.0.24'
+    implementation group: 'com.alipay.sdk', name: 'alipay-easysdk', version: '2.2.0'
+    implementation group: 'com.github.binarywang', name: 'weixin-java-pay', version: '4.1.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}

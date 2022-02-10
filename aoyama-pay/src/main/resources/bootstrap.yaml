@@ -1,0 +1,21 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: pay
+  cloud:
+    nacos:
+      config:
+        enabled: true
+        server-addr: 81.68.170.150:8848
+        namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
+        group: dev
+        name: aoyama-pay.yaml
+        file-extension: yaml
+    discovery:
+      server-addr: 81.68.170.150:8848
+      namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
+      group: dev
+  profiles:
+    active: dev

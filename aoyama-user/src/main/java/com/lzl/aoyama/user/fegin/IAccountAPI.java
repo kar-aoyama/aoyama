@@ -9,6 +9,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @date: 2021/5/17 下午2:58
  * @Description:
  */
-@FeignClient(name = "aoyama-auth", contextId = "accountAPI")
+@FeignClient(name = "auth", contextId = "accountAPI")
 public interface IAccountAPI extends AccountAPI {
 }

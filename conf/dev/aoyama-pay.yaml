@@ -1,11 +1,11 @@
 spring:
   application:
-    name: user
+    name: pay
   datasource:
     username: root
     password: lzl0502
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://81.68.170.150:3306/aoyama_user?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
+    url: "jdbc:mysql://81.68.170.150:3306/aoyama_pay?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
   #  链路追踪 服务器资源不够
   #  sleuth:
   #    web:
@@ -81,7 +81,7 @@ seata:
   enabled: true
   application-id: ${spring.application.name}
   # 事务分组
-  tx-service-group: ${spring.application.name}-group 
+  tx-service-group: ${spring.application.name}-group
   #开启数据库代理
   enable-auto-data-source-proxy: true
   # 配置服务

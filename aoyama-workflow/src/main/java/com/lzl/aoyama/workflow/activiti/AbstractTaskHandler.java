@@ -1,13 +1,9 @@
 package com.lzl.aoyama.workflow.activiti;
 
-import com.lzl.aoyama.common.exception.GlobalException;
 import com.lzl.aoyama.workflow.api.dto.AbstractTaskInfo;
 import com.lzl.aoyama.workflow.api.dto.ExecutionPerson;
-import com.lzl.aoyama.workflow.handler.UserTaskHandler;
-import org.activiti.engine.task.Task;
 
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author lzl

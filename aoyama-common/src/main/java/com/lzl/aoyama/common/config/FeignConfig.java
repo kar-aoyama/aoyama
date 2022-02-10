@@ -1,11 +1,10 @@
 package com.lzl.aoyama.common.config;
 
-import cn.hutool.core.util.StrUtil;
 import feign.RequestInterceptor;
-import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -44,6 +43,10 @@ public class FeignConfig {
                 Enumeration<String> headerValues = request.getHeaders(headerName);
                 while (headerValues.hasMoreElements()) {
                     String headerValue = headerValues.nextElement();
+
+                    if (headerName.equalsIgnoreCase(HttpHeaders.CONTENT_LENGTH)){
+                        continue;
+                    }
                     template.header(headerName, headerValue);
                 }
             }
@@ -58,12 +61,12 @@ public class FeignConfig {
                 template.header("Authorization", tokenType + " " + tokenValue);
             }
 
-            //设置分布式事务xid
-            String xid = RootContext.getXID();
-            if (StrUtil.isNotBlank(xid)) {
-                template.header(RootContext.KEY_XID, xid);
-                log.info("分布式事务id：{}", xid);
-            }
+//            //设置分布式事务xid
+//            String xid = RootContext.getXID();
+//            if (StrUtil.isNotBlank(xid)) {
+//                template.header(RootContext.KEY_XID, xid);
+//                log.info("分布式事务id：{}", xid);
+//            }
 
         };
     }

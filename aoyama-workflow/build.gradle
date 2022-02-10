@@ -1,9 +1,9 @@
 plugins {
     id 'java'
 }
-
+jar.enabled = true
 group 'com.lzl'
-version '0.0.1-SNAPSHOT'
+version '1.0'
 
 repositories {
     mavenCentral()
@@ -11,8 +11,6 @@ repositories {
 
 dependencies {
     implementation group: 'org.activiti', name: 'activiti-spring-boot-starter-basic', version: '6.0.0'
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
-    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config'
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile 'mysql:mysql-connector-java:8.0.24'
     compile project(':aoyama-common')

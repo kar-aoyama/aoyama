@@ -1,6 +1,6 @@
 spring:
   application:
-    name: aoyama-file
+    name: file
   datasource:
     username: root
     password: lzl0502

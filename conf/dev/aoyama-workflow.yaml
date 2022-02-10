@@ -1,9 +1,6 @@
-server:
-  port: 8084
-
 spring:
   application:
-    name: aoyama-workflow
+    name: workflow
   datasource:
     username: root
     password: lzl0502

@@ -2,8 +2,9 @@ plugins {
     id 'java'
 }
 
+jar.enabled = true
 group 'com.lzl'
-version '0.0.1-SNAPSHOT'
+version '1.0'
 
 repositories {
     mavenCentral()
@@ -11,12 +12,22 @@ repositories {
 
 dependencies {
     implementation group: 'io.minio', name: 'minio', version: '8.2.1'
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
-    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config'
-    compile('org.springframework.cloud:spring-cloud-starter-oauth2')
-    compile project(':aoyama-common')
+    implementation  project(':aoyama-common')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+jar {
+    manifest {
+        attributes(
+                "Manifest-Version": 1.0,
+                'Main-Class': 'com.lzl.aoyama.file.FileApplication'
+        )
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    into('assets') {
+        from 'assets'
+    }
 }
 
 test {

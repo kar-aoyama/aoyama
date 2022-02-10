@@ -1,9 +1,6 @@
-server:
-  port: 8086
-
 spring:
   application:
-    name: aoyama-auth
+    name: auth
   datasource:
     username: root
     password: lzl0502
@@ -26,44 +23,24 @@ spring:
     #消息中间件配置
     stream:
       rocketmq:
-        default:
-          producer:
-            vipChannelEnabled: true
         binder:
-          name-server: 101.43.72.78:9876
-      #  bindings:
-      #    broadCastInput:
-      #      consumer:
-      #        enabled: true
-      #        broadcasting: true
+          name-server: "81.68.170.150:9876"
+        bindings:
+          broadCastInput:
+            consumer:
+              enabled: true
+              broadcasting: true
       default-binder: rocketmq
       bindings:
         # 默认是点对点
-        output:
-          content-type: application/json
-          destination: cluster_msg_topic
-          group: cluster_msg_group
         input:
-          content-type: application/json
           destination: cluster_msg_topic
-          #  group: input
           group: cluster_msg_group
-        myInput:
-          content-type: application/json
-          destination: my_topic
-          group: my_group
-        myOutput:
-          content-type: application/json
-          destination: my_topic
-          #  group: input
-          group: my_group
         # 接受广播消息
-      #  broadCastOutput:
-      #    destination: broadcast_msg_topic
-      #    group: broadcast_msg_group
-      #  broadCastInput:
-      #    destination: broadcast_msg_topic
-      #    group: broadcast_msg_group
+        broadCastInput:
+          destination: broadcast_msg_topic
+          group: broadcast_msg_group
+
   # 链路跟踪  服务器资源不够
 #  sleuth:
 #    web:
@@ -81,6 +58,15 @@ spring:
 feign:
   httpclient:
     enabled: true
+  hystrix:
+    enabled: false
+
+ribbon:
+  http:
+    client:
+      enabled: false
+  restclient:
+    enabled: false
 
 
 #配置分布式事务

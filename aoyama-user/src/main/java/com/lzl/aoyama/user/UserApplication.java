@@ -4,6 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.cloud.stream.messaging.Source;
 
 /**
  * @author lzl
@@ -12,11 +15,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @Description:
  */
 @EnableFeignClients
+//开启feign客户端
+@EnableBinding({Source.class, Sink.class})
+//指定包名是为了解决不会扫描common 模块
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = "com.lzl.aoyama"
-        //排除掉 不然seata不生效
-        //,exclude = {DataSourceAutoConfiguration.class}
-)
+@SpringBootApplication(scanBasePackages = "com.lzl.aoyama")
 public class UserApplication {
 
     public static void main(String[] args) {

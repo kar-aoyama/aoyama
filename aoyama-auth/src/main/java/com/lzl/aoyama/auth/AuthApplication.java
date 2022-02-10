@@ -18,8 +18,8 @@ import org.springframework.cloud.stream.messaging.Source;
 @EnableDiscoveryClient
 //开启feign客户端
 @EnableFeignClients
-@EnableBinding({Source.class,Sink.class})
 //指定包名是为了解决不会扫描common 模块
+@EnableBinding({Source.class, Sink.class})
 @SpringBootApplication(scanBasePackages = "com.lzl.aoyama")
 public class AuthApplication {
 

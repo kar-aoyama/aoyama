@@ -2,23 +2,20 @@ plugins {
     id 'java'
 }
 
-
+jar.enabled = true
+group 'com.lzl'
+version '1.0'
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery')
-
+    implementation('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config')
+    implementation('org.springframework.cloud:spring-cloud-starter-oauth2')
     //解决webflux 里面 jar包冲突
     implementation group: 'io.projectreactor.netty', name: 'reactor-netty', version: '0.9.14.RELEASE'
-    //gateway 不能有webmvc模块
-    compile(project(":aoyama-common")) {
-        exclude module: 'spring-boot-starter-web'
-        exclude module: 'spring-cloud-starter-stream-rocketmq'
-    }
     implementation('org.springframework.cloud:spring-cloud-starter-gateway')
-    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config'
+
     //  implementation('org.springframework.cloud:spring-cloud-loadbalancer')
 //    implementation "org.springframework.session:spring-session-data-redis"
 //    implementation 'org.springframework.boot:spring-boot-starter-web'
