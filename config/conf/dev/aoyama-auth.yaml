@@ -1,26 +1,18 @@
 spring:
   application:
-    name: user
+    name: auth
   datasource:
     username: root
     password: lzl0502
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://81.68.170.150:3306/aoyama_user?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
-  #  链路追踪 服务器资源不够
-  #  sleuth:
-  #    web:
-  #      client:
-  #        enabled: true
-  #      enabled: true
-  #    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
-  #    sampler:
-  #      probability: 1.0
-  #    zipkin:
-  #      base-url: "http://81.68.170.150:9411/"
-  #      sender:
-  #        type: web
+    url: "jdbc:mysql://81.68.170.150:3306/aoyama_auth?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull"
+  redis:
+    host: 81.68.170.150
+    port: 6379
+    database: 0
   cloud:
     nacos:
+      # 服务注册
       discovery:
         server-addr: 81.68.170.150:8848
         namespace: 82477b99-89cf-4a17-9164-97f65da64e8f
@@ -32,7 +24,7 @@ spring:
     stream:
       rocketmq:
         binder:
-          name-server: "81.68.170.150:9876"
+          name-server: "101.43.72.78:9876"
         bindings:
           broadCastInput:
             consumer:
@@ -49,6 +41,19 @@ spring:
           destination: broadcast_msg_topic
           group: broadcast_msg_group
 
+  # 链路跟踪  服务器资源不够
+#  sleuth:
+#    web:
+#      client:
+#        enabled: true
+#      enabled: true
+#    # 设置 1就是百分之百收集 设置0.1即10%概率收集链路数据
+#    sampler:
+#      probability: 1.0
+#    zipkin:
+#      base-url: "http://81.68.170.150:9411/"
+#      sender:
+#        type: web
 
 feign:
   httpclient:
@@ -63,25 +68,13 @@ ribbon:
   restclient:
     enabled: false
 
-security:
-  oauth2:
-    client:
-      client-id: app
-      client-secret: app
-      access-token-uri: "http://127.0.0.1:8086/oauth/token"
-      user-authorization-uri: "http://127.0.0.1:8086/oauth/authorize"
-    resource:
-      jwt:
-        #(如果使用JWT，可以获的公钥用于 token 的验签)
-        key-uri: "http://127.0.0.1:8086/oauth/token_key"
-
 
 #配置分布式事务
 seata:
   enabled: true
   application-id: ${spring.application.name}
   # 事务分组
-  tx-service-group: ${spring.application.name}-group 
+  tx-service-group: ${spring.application.name}-group
   #开启数据库代理
   enable-auto-data-source-proxy: true
   # 配置服务
@@ -98,7 +91,6 @@ seata:
       server-addr: ${spring.cloud.nacos.discovery.server-addr}
       namespace: ${spring.cloud.nacos.discovery.namespace}
 
-
 #logging:
 #  level:
 #    root: debug
@@ -107,4 +99,9 @@ seata:
 #        cloud:
 #          gateway:
 #            filter:
-#              LoadBalancerClientFilter : debug
+#              LoadBalancerClientFilter : info
+
+auth:
+   client:
+      permitUrls: ["111","222"]
+      authenticatedUrls: ["1","2"]

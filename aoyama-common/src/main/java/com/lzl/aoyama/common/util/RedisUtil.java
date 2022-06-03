@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class RedisUtil {
 
     @Autowired
-    RedissonClient redissonClient;
+    private RedissonClient redissonClient;
 
 
     public boolean tryLock(String key) {

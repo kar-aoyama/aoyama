@@ -3,7 +3,6 @@ package com.lzl.aoyama.workflow.activiti;
 import com.google.common.collect.Maps;
 import org.activiti.engine.delegate.DelegateExecution;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,6 +38,9 @@ public abstract class AbstractElement {
             processDefinitionKey = key.toString();
         }
         //待扩展  可以拿到processDefinitionKey 方便去操作  比如去数据库读取默认代办人
+
+
+        //存储数据 variablesMap 流程数据  nodeDataMap 节点数据
 
     }
 

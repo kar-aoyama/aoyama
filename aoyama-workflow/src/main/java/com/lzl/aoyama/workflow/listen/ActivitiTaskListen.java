@@ -7,6 +7,7 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.delegate.TaskListener;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Objects;
@@ -16,6 +17,7 @@ import java.util.Objects;
  * @date 2021/9/7 17:23
  * @Description:
  */
+@Component
 public class ActivitiTaskListen implements TaskListener, ExecutionListener {
 
 
@@ -29,7 +31,7 @@ public class ActivitiTaskListen implements TaskListener, ExecutionListener {
         //获取当前正在执行的ActivitiId
         String currentActivityId = execution.getCurrentActivityId();
         AbstractElement abstractElement = elementMap.get(currentActivityId);
-        if (Objects.isNull(abstractElement)) {
+        if (Objects.nonNull(abstractElement)) {
             abstractElement.notify(execution);
         }
     }

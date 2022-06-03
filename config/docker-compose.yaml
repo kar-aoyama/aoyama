@@ -1,0 +1,78 @@
+version: "3.5"
+services:
+  rmqnamesrv:
+     image: rocketmqinc/rocketmq
+     container_name: rmqnamesrv
+     ports: 
+        - 9876:9876
+     volumes:
+        - /root/rocketmq/logs:/root/logs
+        - /root/rocketmq/store:/root/store
+     environment:
+        JAVA_OPT_EXT: "-server -Xms256m -Xmx256m -Xmn256m"
+     networks:
+        rmq:
+          aliases:
+            - rmqnamesrv    
+     command: sh mqnamesrv
+  rmqbroker:
+     image: rocketmqinc/rocketmq
+     container_name: rmqbroker
+     ports:
+        - 10909:10909
+        - 10911:10911
+     volumes:
+        - /root/rocketmq/logs:/root/logs
+        - /root/rocketmq/store:/root/store
+        - /root/rocketmq/conf/broker.conf:/opt/rocketmq-4.4.0/conf/broker.conf
+     environment:
+        NAMESRV_ADDR: "101.43.72.78:9876"
+        JAVA_OPTS: " -Duser.home=/opt"
+        JAVA_OPT_EXT: "-server -Xms256m -Xmx256m -Xmn256m"
+     command: ./mqbroker -c /root/rocketmq/conf/broker.conf
+     depends_on:
+        - rmqnamesrv
+  rmqconsole:
+     image: styletang/rocketmq-console-ng
+     container_name: rmqconsole
+     ports:
+        - 8080:8080   
+     environment:
+        JAVA_OPTS: "-Drocketmq.namesrv.addr=rmqnamesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
+     depends_on:
+        - rmqnamesrv
+     networks:
+        rmq:
+          aliases:
+                - rmqconsole
+                
+  xxljob:
+       image: docker.io/xuxueli/xxl-job-admin:2.3.0
+       container_name: xxl-job
+       ports:
+         - 8090:8080
+       volumes:
+         - /root/xxl-job/logs:/data/applogs/xxl-job/
+       environment:
+           PARAMS: '--spring.datasource.url=jdbc:mysql://81.68.170.150:3306/xxl_job?Unicode=true&characterEncoding=UTF-8 --spring.datasource.username=root --spring.datasource.password=lzl0502'
+           
+  minio: 
+    image: "minio/minio"
+    container_name: minio
+    ports:
+      - 9000:9000
+      - 9001:9001 # 一个是Api端口  一个是控制台端口
+    environment:
+      MINIO_ACCESS_KEY: admin #后台用户名
+      MINIO_SECRET_KEY: lzl983517 #后台密码
+    volumes:
+      - /root/minio/data:/data  #映射数据目录
+      - /root/minio/config/root/.minio/ #映射配置目录
+    command: server data  --console-address "0.0.0.0:9000" --address "0.0.0.0:9001" # 指定数据目录 固定端口 
+    restart: always
+           
+                           
+networks:
+  rmq:
+    name: rmq
+    driver: bridge

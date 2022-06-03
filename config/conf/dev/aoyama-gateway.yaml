@@ -21,7 +21,7 @@ spring:
     stream:
       rocketmq:
         binder:
-          name-server: "81.68.170.150:9876"
+          name-server: "101.43.72.78:9876"
         bindings:
           broadCastInput:
             consumer:
