@@ -6,11 +6,7 @@ import com.lzl.aoyama.common.exception.GlobalException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * 异常通知器
- *
- * @author zouwei
- */
+
 public interface ExceptionNotifier {
 
     /**
